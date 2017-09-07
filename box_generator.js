@@ -126,12 +126,12 @@ var SvgTools = {
 		if (typeof arr == 'array' || typeof arr == 'object') {
 			return arr.map(function (point) {
 				return point.map(function (coord) {
-					return coord * 90 / 25.4;
+					return coord * 96 / 25.4;
 				});
 			});
 		}
 		if (typeof arr == 'number') {
-			return arr * 90 / 25.4;
+			return arr * 96 / 25.4;
 		}
 
 	},
