@@ -154,7 +154,7 @@ var SvgTools = {
 		out.innerHTML = "Chargement...";
 		layer.innerHTML = "";
 	},
-	downloadLink: function (width, depth, height, thickness) {
+	downloadLink: function (length, width, depth, thickness) {
 		var aFileParts = ['<?xml version="1.0" encoding="UTF-8" standalone="no"?>', document.getElementById("svg").innerHTML];
 		var oMyBlob = new Blob(aFileParts, {
 			type: 'image/svg+xml '
@@ -162,41 +162,41 @@ var SvgTools = {
 		var out = document.getElementById("out");
 		out.innerHTML = "";
 		var link = document.createElement("a");
-		link.innerHTML = (["⎘ Télécharger le fichier pour une boite de", width, "x", depth, "x", height, "en", thickness, "mm d'epaisseur"].join(" "));
+		link.innerHTML = (["⎘ Télécharger le fichier pour une boite de", length, "x", width, "x", depth, "en", thickness, "mm d'epaisseur"].join(" "));
 		link.setAttribute("href", URL.createObjectURL(oMyBlob));
-		link.setAttribute("download", ["box_", width, "x", depth, "x", height, "_", thickness, "mm.svg"].join(""));
+		link.setAttribute("download", ["box_", length, "x", width, "x", depth, "_", thickness, "mm.svg"].join(""));
 		out.appendChild(link);
 		link.click();
 	},
-	setDocumentSize: function (width, depth, height, thickness) {
-		document.getElementById("box").setAttribute("height", SvgTools.mm2px(depth + 2 * height + 4 * thickness));
-		document.getElementById("box").setAttribute("width", SvgTools.mm2px(2 * Math.max(width, depth) + 3 * thickness));
+	setDocumentSize: function (length, width, depth, thickness) {
+		document.getElementById("box").setAttribute("height", SvgTools.mm2px(width + 2 * depth + 4 * thickness));
+		document.getElementById("box").setAttribute("width", SvgTools.mm2px(2 * Math.max(length, width) + 3 * thickness));
 	}
 };
 
 var Box = {
-	_bottom: function (width, depth, tab_width, thickness, backlash) {
+	_bottom: function (length, width, tab_width, thickness, backlash) {
 		console.debug("_bottom");
 		var points = [[0, 0]];
-		points.push.apply(points, TabTools.tabs(width, tab_width, thickness, {
+		points.push.apply(points, TabTools.tabs(length, tab_width, thickness, {
 			direction: 0,
 			backlash: backlash,
 			firstUp: true,
 			lastUp: true
 		}));
-		points.push.apply(points, TabTools.tabs(depth, tab_width, thickness, {
+		points.push.apply(points, TabTools.tabs(width, tab_width, thickness, {
 			direction: 1,
 			backlash: backlash,
 			firstUp: true,
 			lastUp: true
 		}));
-		points.push.apply(points, TabTools.tabs(width, tab_width, thickness, {
+		points.push.apply(points, TabTools.tabs(length, tab_width, thickness, {
 			direction: 2,
 			backlash: backlash,
 			firstUp: true,
 			lastUp: true
 		}));
-		points.push.apply(points, TabTools.tabs(depth, tab_width, thickness, {
+		points.push.apply(points, TabTools.tabs(width, tab_width, thickness, {
 			direction: 3,
 			backlash: backlash,
 			firstUp: true,
@@ -204,23 +204,23 @@ var Box = {
 		}));
 		return points;
 	},
-	_front_without_top: function (width, height, tab_width, thickness, backlash) {
+	_front_without_top: function (length, depth, tab_width, thickness, backlash) {
 		console.debug("_front_without_top");
-		var points = [[0, 0], [width, 0]];
-		points.push.apply(points, TabTools.tabs(height - thickness, tab_width, thickness, {
+		var points = [[0, 0], [length, 0]];
+		points.push.apply(points, TabTools.tabs(depth - thickness, tab_width, thickness, {
 			direction: 1,
 			backlash: backlash,
 			firstUp: true,
 			lastUp: true
 		}));
-		points.push.apply(points, TabTools.tabs(width, tab_width, thickness, {
+		points.push.apply(points, TabTools.tabs(length, tab_width, thickness, {
 			direction: 2,
 			backlash: backlash,
 			firstUp: true,
 			lastUp: true,
 			inverted: true
 		}));
-		points.push.apply(points, TabTools.tabs(height - thickness, tab_width, thickness, {
+		points.push.apply(points, TabTools.tabs(depth - thickness, tab_width, thickness, {
 			direction: 3,
 			backlash: backlash,
 			firstUp: true,
@@ -228,31 +228,31 @@ var Box = {
 		}));
 		return points;
 	},
-	_front_with_top: function (width, height, tab_width, thickness, backlash) {
+	_front_with_top: function (length, depth, tab_width, thickness, backlash) {
 		console.debug("_front_with_top");
 		var points = [[0, thickness]];
 
-		points.push.apply(points, TabTools.tabs(width, tab_width, thickness, {
+		points.push.apply(points, TabTools.tabs(length, tab_width, thickness, {
 			direction: 0,
 			backlash: backlash,
 			firstUp: true,
 			lastUp: true,
 			inverted: true
 		}));
-		points.push.apply(points, TabTools.tabs(height - (thickness * 2), tab_width, thickness, {
+		points.push.apply(points, TabTools.tabs(depth - (thickness * 2), tab_width, thickness, {
 			direction: 1,
 			backlash: backlash,
 			firstUp: true,
 			lastUp: true
 		}));
-		points.push.apply(points, TabTools.tabs(width, tab_width, thickness, {
+		points.push.apply(points, TabTools.tabs(length, tab_width, thickness, {
 			direction: 2,
 			backlash: backlash,
 			firstUp: true,
 			lastUp: true,
 			inverted: true
 		}));
-		points.push.apply(points, TabTools.tabs(height - (thickness * 2), tab_width, thickness, {
+		points.push.apply(points, TabTools.tabs(depth - (thickness * 2), tab_width, thickness, {
 			direction: 3,
 			backlash: backlash,
 			firstUp: true,
@@ -260,17 +260,17 @@ var Box = {
 		}));
 		return points;
 	},
-	_side_without_top: function (depth, height, tab_width, thickness, backlash) {
+	_side_without_top: function (width, depth, tab_width, thickness, backlash) {
 		console.debug("_side_without_top");
-		var points = [[thickness, 0], [depth - (4 * thickness), 0]];
-		points.push.apply(points, TabTools.tabs(height - thickness, tab_width, thickness, {
+		var points = [[thickness, 0], [width - (4 * thickness), 0]];
+		points.push.apply(points, TabTools.tabs(depth - thickness, tab_width, thickness, {
 			direction: 1,
 			backlash: backlash,
 			firstUp: true,
 			lastUp: true,
 			inverted: true
 		}));
-		points.push.apply(points, TabTools.tabs(depth, tab_width, thickness, {
+		points.push.apply(points, TabTools.tabs(width, tab_width, thickness, {
 			direction: 2,
 			backlash: backlash,
 			firstUp: true,
@@ -278,7 +278,7 @@ var Box = {
 			inverted: true,
 			cutOff: true
 		}));
-		points.push.apply(points, TabTools.tabs(height - thickness, tab_width, thickness, {
+		points.push.apply(points, TabTools.tabs(depth - thickness, tab_width, thickness, {
 			direction: 3,
 			backlash: backlash,
 			firstUp: true,
@@ -287,10 +287,10 @@ var Box = {
 		}));
 		return points;
 	},
-	_side_with_top: function (depth, height, tab_width, thickness, backlash) {
+	_side_with_top: function (width, depth, tab_width, thickness, backlash) {
 		console.debug("_side_with_top");
 		var points = [[thickness, thickness]];
-		points.push.apply(points, TabTools.tabs(depth, tab_width, thickness, {
+		points.push.apply(points, TabTools.tabs(width, tab_width, thickness, {
 			direction: 0,
 			backlash: backlash,
 			firstUp: true,
@@ -298,14 +298,14 @@ var Box = {
 			inverted: true,
 			cutOff: true
 		}));
-		points.push.apply(points, TabTools.tabs(height - (2 * thickness), tab_width, thickness, {
+		points.push.apply(points, TabTools.tabs(depth - (2 * thickness), tab_width, thickness, {
 			direction: 1,
 			backlash: backlash,
 			firstUp: true,
 			lastUp: true,
 			inverted: true
 		}));
-		points.push.apply(points, TabTools.tabs(depth, tab_width, thickness, {
+		points.push.apply(points, TabTools.tabs(width, tab_width, thickness, {
 			direction: 2,
 			backlash: backlash,
 			firstUp: true,
@@ -313,7 +313,7 @@ var Box = {
 			inverted: true,
 			cutOff: true
 		}));
-		points.push.apply(points, TabTools.tabs(height - (2 * thickness), tab_width, thickness, {
+		points.push.apply(points, TabTools.tabs(depth - (2 * thickness), tab_width, thickness, {
 			direction: 3,
 			backlash: backlash,
 			firstUp: true,
@@ -322,26 +322,26 @@ var Box = {
 		}));
 		return points;
 	},
-	withTop: function (width, depth, height, tab_size, thickness, backlash) {
+	withTop: function (length, width, depth, tab_size, thickness, backlash) {
 		SvgTools.clearPathAndLink();
-		SvgTools.addPath(SvgTools.toPathString(SvgTools.mm2px(Box._bottom(width, depth, tab_size, thickness, backlash))), 'bottom', (1 * thickness), (1 * thickness));
-		SvgTools.addPath(SvgTools.toPathString(SvgTools.mm2px(Box._bottom(width, depth, tab_size, thickness, backlash))), 'top', (2 * thickness + width), (1 * thickness));
-		SvgTools.addPath(SvgTools.toPathString(SvgTools.mm2px(Box._front_with_top(width, height, tab_size, thickness, backlash))), 'font', (2 * thickness + width), (2 * thickness + depth));
-		SvgTools.addPath(SvgTools.toPathString(SvgTools.mm2px(Box._front_with_top(width, height, tab_size, thickness, backlash))), 'back', (1 * thickness), (2 * thickness + depth));
-		SvgTools.addPath(SvgTools.toPathString(SvgTools.mm2px(Box._side_with_top(depth, height, tab_size, thickness, backlash))), 'left_side', (2 * thickness + depth), (3 * thickness + depth + height));
-		SvgTools.addPath(SvgTools.toPathString(SvgTools.mm2px(Box._side_with_top(depth, height, tab_size, thickness, backlash))), 'right_side', (1 * thickness), (3 * thickness + depth + height));
-		SvgTools.setDocumentSize(width, depth, height, thickness);
-		SvgTools.downloadLink(width, depth, height, thickness);
+		SvgTools.addPath(SvgTools.toPathString(SvgTools.mm2px(Box._bottom(length, width, tab_size, thickness, backlash))), 'bottom', (1 * thickness), (1 * thickness));
+		SvgTools.addPath(SvgTools.toPathString(SvgTools.mm2px(Box._bottom(length, width, tab_size, thickness, backlash))), 'top', (2 * thickness + length), (1 * thickness));
+		SvgTools.addPath(SvgTools.toPathString(SvgTools.mm2px(Box._front_with_top(length, depth, tab_size, thickness, backlash))), 'font', (2 * thickness + length), (2 * thickness + width));
+		SvgTools.addPath(SvgTools.toPathString(SvgTools.mm2px(Box._front_with_top(length, depth, tab_size, thickness, backlash))), 'back', (1 * thickness), (2 * thickness + width));
+		SvgTools.addPath(SvgTools.toPathString(SvgTools.mm2px(Box._side_with_top(width, depth, tab_size, thickness, backlash))), 'left_side', (2 * thickness + width), (3 * thickness + width + depth));
+		SvgTools.addPath(SvgTools.toPathString(SvgTools.mm2px(Box._side_with_top(width, depth, tab_size, thickness, backlash))), 'right_side', (1 * thickness), (3 * thickness + width + depth));
+		SvgTools.setDocumentSize(length, width, depth, thickness);
+		SvgTools.downloadLink(length, width, depth, thickness);
 	},
-	withoutTop: function (width, depth, height, tab_size, thickness, backlash) {
+	withoutTop: function (length, width, depth, tab_size, thickness, backlash) {
 		SvgTools.clearPathAndLink();
-		SvgTools.addPath(SvgTools.toPathString(SvgTools.mm2px(Box._bottom(width, depth, tab_size, thickness, backlash))), 'bottom', (1 * thickness), (1 * thickness));
-		SvgTools.addPath(SvgTools.toPathString(SvgTools.mm2px(Box._front_without_top(width, height, tab_size, thickness, backlash))), 'font', (2 * thickness + width), (2 * thickness + depth));
-		SvgTools.addPath(SvgTools.toPathString(SvgTools.mm2px(Box._front_without_top(width, height, tab_size, thickness, backlash))), 'back', (1 * thickness), (2 * thickness + depth));
-		SvgTools.addPath(SvgTools.toPathString(SvgTools.mm2px(Box._side_without_top(depth, height, tab_size, thickness, backlash))), 'left_side', (2 * thickness + depth), (3 * thickness + depth + height));
-		SvgTools.addPath(SvgTools.toPathString(SvgTools.mm2px(Box._side_without_top(depth, height, tab_size, thickness, backlash))), 'right_side', (1 * thickness), (3 * thickness + depth + height));
-		SvgTools.setDocumentSize(width, depth, height, thickness);
-		SvgTools.downloadLink(width, depth, height, thickness);
+		SvgTools.addPath(SvgTools.toPathString(SvgTools.mm2px(Box._bottom(length, width, tab_size, thickness, backlash))), 'bottom', (1 * thickness), (1 * thickness));
+		SvgTools.addPath(SvgTools.toPathString(SvgTools.mm2px(Box._front_without_top(length, depth, tab_size, thickness, backlash))), 'font', (2 * thickness + length), (2 * thickness + width));
+		SvgTools.addPath(SvgTools.toPathString(SvgTools.mm2px(Box._front_without_top(length, depth, tab_size, thickness, backlash))), 'back', (1 * thickness), (2 * thickness + width));
+		SvgTools.addPath(SvgTools.toPathString(SvgTools.mm2px(Box._side_without_top(width, depth, tab_size, thickness, backlash))), 'left_side', (2 * thickness + width), (3 * thickness + width + depth));
+		SvgTools.addPath(SvgTools.toPathString(SvgTools.mm2px(Box._side_without_top(width, depth, tab_size, thickness, backlash))), 'right_side', (1 * thickness), (3 * thickness + width + depth));
+		SvgTools.setDocumentSize(length, width, depth, thickness);
+		SvgTools.downloadLink(length, width, depth, thickness);
 	}
 };
 
@@ -358,9 +358,9 @@ function value_of(id) {
 function generate_box() {
 	try {
 		if (document.getElementById('closed').checked) {
-			Box.withTop(value_of('width'), value_of('depth'), value_of('height'), value_of('tabs'), value_of('thickness'), value_of('backlash'));
+			Box.withTop(value_of('length'), value_of('width'), value_of('depth'), value_of('tabs'), value_of('thickness'), value_of('backlash'));
 		} else {
-			Box.withoutTop(value_of('width'), value_of('depth'), value_of('height'), value_of('tabs'), value_of('thickness'), value_of('backlash'));
+			Box.withoutTop(value_of('length'), value_of('width'), value_of('depth'), value_of('tabs'), value_of('thickness'), value_of('backlash'));
 		}
 	} catch (e) {
 		console.error(e);
