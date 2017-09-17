@@ -2,123 +2,159 @@
 <html>
 
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>SVG Boxes for laser cutter generator</title>
-	<style>
-		h1 {
-			font-weight:normal;
-			border-bottom:dotted 1px #CCC;
-		}
-		body {
-			max-width:600px;
-			margin:auto;
-			font-family: Verdana,"DejaVu Sans","Bitstream Vera Sans",Geneva,sans-serif;
-			font-size:8pt;
-		}
-		fieldset{
-			border:none;
-			border-bottom:dotted 1px #CCC;
-		}
-		fieldset div{
-			margin:0.5em 0;
-		}
-		label span {
-			display:inline-block;	
-			width:23em;
-			text-align:right;
-		}
-		input {
-			border:solid 1px #888888;	
-			width:4em;
-			margin-right:0.5em;
-			text-align:right;
-		}
-		#out{
-			text-align:center;	
-		}
-		#footer{
-			text-align:right;
-			opacity:0.6;
-			font-size:0.8em;
-		}
-	</style>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>SVG Tabbed Boxes for laser cutter generator</title>
+    <style>
+        h1 {
+            font-weight:normal;
+            border-bottom:dotted 1px #CCC;
+        }
+        body {
+            max-width:600px;
+            margin:auto;
+            font-family: Verdana,"DejaVu Sans","Bitstream Vera Sans",Geneva,sans-serif;
+            font-size:8pt;
+        }
+        fieldset{
+            border:none;
+            border-bottom:dotted 1px #CCC;
+        }
+        fieldset div{
+            margin:0.5em 0;
+        }
+        label span {
+            display:inline-block;
+            width:23em;
+            text-align:right;
+        }
+        input {
+            border:solid 1px #888888;
+            width:4em;
+            margin-right:0.5em;
+            text-align:right;
+        }
+        #out{
+            text-align:center;
+        }
+        #footer{
+            text-align:right;
+            opacity:0.6;
+            font-size:0.8em;
+        }
+    </style>
 </head>
 
 <body>
-	<div id="svg" style="display:none">
-		<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="177.16536" height="70.866142" id="box" version="1.1" inkscape:version="0.92.1 r15371" sodipodi:docname="dessin.svg">
-			<defs id="defs4" />
-			<sodipodi:namedview id="base" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1.0" inkscape:pageopacity="0.0" inkscape:pageshadow="2" inkscape:document-units="mm" inkscape:current-layer="layer1" showgrid="false" fit-margin-top="0" fit-margin-left="0" fit-margin-right="0" fit-margin-bottom="0" units="mm" inkscape:window-maximized="1" />
-			<metadata id="metadata7">
-				<rdf:RDF>
-					<cc:Work rdf:about="">
-						<dc:format>image/svg+xml</dc:format>
-						<dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-						<dc:title />
-					</cc:Work>
-				</rdf:RDF>
-			</metadata>
-			<g inkscape:label="Calque 1" inkscape:groupmode="layer" id="layer1">
+    <div id="svg" style="display:none">
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:cc="http://creativecommons.org/ns#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:svg="http://www.w3.org/2000/svg"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+     xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+     width="177.16536"
+     height="70.866142"
+     id="box"
+     version="1.1"
+     inkscape:version="0.92.1 r15371"
+     sodipodi:docname="dessin.svg">
+  <defs id="defs4" />
+  <sodipodi:namedview
+    id="base"
+    pagecolor="#ffffff"
+    bordercolor="#666666"
+    borderopacity="1.0"
+    inkscape:pageopacity="0.0"
+    inkscape:pageshadow="2"
+    inkscape:document-units="mm"
+    inkscape:current-layer="layer1"
+    showgrid="false"
+    fit-margin-top="0"
+    fit-margin-left="0"
+    fit-margin-right="0"
+    fit-margin-bottom="0"
+    units="mm"
+    inkscape:window-maximized="1" />
+  <metadata id="metadata7">
+    <rdf:RDF>
+      <cc:Work rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g inkscape:label="Calque 1" inkscape:groupmode="layer" id="layer1">
 
-			</g>
-		</svg>
-	</div>
-	<h1>Générateur de boites SVG</h1>
-	<p>
-		<em>
-			Génère les plans d'un boite à la taille souhaitée, réalisable à la découpeuse laser, au format SVG (inkscape).
-		</em>
-	</p>
-	<fieldset>
-		<div>
-			<label title="Longueur de la boite">
-				<span>Longueur :</span>
-				<input type="text" id="length" value="200" />mm</label>
-		</div>
-		<div>
-			<label title="Largeur de la boite">
-				<span>Largeur :</span>
-				<input type="text" id="width" value="100" />mm</label>
-		</div>
-		<div>
-			<label title="Profondeur de la boite">
-				<span>Profondeur :</span>
-				<input type="text" id="depth" value="50" />mm</label>
-		</div>
-		<div title="Épaisseur du materiau utilisé">
-			<label>
-				<span>Épaisseur du matériau :</span>
-				<input type="text" id="thickness" value="3" />mm</label>
-		</div>
-		<div>
-			<label title="Largeur approximative des encoches souhaitées">
-				<span>Largeur des encoches :</span>
-				<input type="text" id="tabs" value="10" />mm</label>
-		</div>
-		<div title="Rattrapage du jeu induit par la largeur du trait de coupe du laser.">
-			<label>
-				<span>Jeu :</span>
-				<input type="text" id="backlash" value="0.1" />mm</label>
-		</div>
-		<div>
-			<label title="Indique si vous souhaitez une boite totalement fermée ou un boite sans haut">
-				<span>Boite fermée :</span>
-				<input type="checkbox" id="closed" />
-			</label>
-		</div>
-		<div>
-			<label>
-				<span></span>
-				<button onclick="generate_box()">Générer la boite</button>
-			</label>
-		</div>
-		<div id="out"></div>
-	</fieldset>
-	<div id="footer">Outil sous licence <a href="https://www.gnu.org/licenses/agpl-3.0.html" target="_blank">AGPLv3</a> - Sources sur
-		<a href="https://github.com/bumblebeefr/svg-box-generator" target="_blank">github</a>
-	</div>
-	<script src="box_generator.js">
-	</script>
+  </g>
+</svg>
+    </div>
+    <h1>Générateur de pixelateur SVG</h1>
+    <p>
+        <em>
+            Génère les plans d'un pixelateur à la taille souhaitée, réalisable à la découpeuse laser, au format SVG (inkscape).
+        </em>
+    </p>
+    <fieldset>
+        <div>
+            <label title="Longueur de la boîte">
+                <span>Longueur :</span>
+                <input type="text" id="length" value="160" />mm</label>
+        </div>
+        <div>
+            <label title="Largeur de la boîte">
+                <span>Largeur :</span>
+                <input type="text" id="width" value="90" />mm</label>
+        </div>
+        <div>
+            <label title="Nombre de rangées à l'intérieur de la boîte">
+                <span>Nombre de rangées :</span>
+                <input type="text" id="nrows" value="5" /></label>
+        </div>
+        <div>
+            <label title="Profondeur de la boîte">
+                <span>Profondeur :</span>
+                <input type="text" id="depth" value="10" />mm</label>
+        </div>
+        <div title="Épaisseur du materiau utilisé">
+            <label>
+                <span>Épaisseur du matériau :</span>
+                <input type="text" id="thickness" value="3" />mm</label>
+        </div>
+<!--
+        <div>
+            <label title="Largeur approximative des encoches souhaitées">
+                <span>Largeur des encoches :</span>
+                <input type="text" id="tabs" value="10" />mm</label>
+        </div>
+-->
+        <div hidden title="Rattrapage du jeu induit par la largeur du trait de coupe du laser.">
+            <label>
+                <span>Épaisseur du faisceau laser :</span>
+                <input type="text" id="backlash" value="0.1" />mm</label>
+        </div>
+<!--
+        <div>
+            <label title="Indique si vous souhaitez une boîte totalement fermée ou un boîte sans haut">
+                <span>Boîte fermée :</span>
+                <input type="checkbox" id="closed" />
+            </label>
+        </div>
+-->
+        <div>
+            <label>
+                <span></span>
+                <button onclick="generate_box()">Générer le pixelateur</button>
+            </label>
+        </div>
+        <div id="out"></div>
+    </fieldset>
+    <div id="footer">Outil sous licence <a href="https://www.gnu.org/licenses/agpl-3.0.html" target="_blank">AGPLv3</a> - Sources sur
+        <a href="https://github.com/pchanial/svg-box-generator" target="_blank">github</a>
+    </div>
+    <script src="box_generator.js">
+    </script>
 
 </body>
 
